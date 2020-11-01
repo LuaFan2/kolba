@@ -1,18 +1,15 @@
---[[ The beginning...
-
-]]
-
 kolba = {}
 
 kolba.server = require("kolba.server")
 kolba.template = require("kolba.template")
 kolba.route = require("kolba.route")
 kolba.browze = require("kolba.browze")
+kolba.context = require("kolba.context")
 
 kolba.json = require("util.json")
+kolba.cookie = require("util.cookie")
 kolba.mimetypes = require("mimetypes")
 kolba.lfs = require("lfs")
-
 
 kolba.create = function(conf)
 	local _app = {}
@@ -28,6 +25,7 @@ kolba.create = function(conf)
 		kolba.route.add(method, path, body)
 	end
 
+	_app.cookie = kolba.cookie
 
 	-- Request
 	_app.request = {}

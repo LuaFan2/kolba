@@ -1,8 +1,9 @@
 package = "kolba"
 version = "0.1.0-0"
 source = {
-   url = "http://github.com/jessehorne/kolba" -- We don't have one yet
+	url = "..."
 }
+
 description = {
    summary = "A micro web framework for Lua",
    detailed = [[
@@ -25,7 +26,7 @@ description = {
 dependencies = {
    "lua >= 5.2, < 5.4",
 	"http >= 0.2",
-	"lustache",
+	"liluat",
 	"mimetypes"
 }
 build = {
@@ -37,6 +38,7 @@ build = {
 		["kolba.template"] = "src/template.lua",
 		["kolba.route"] = "src/route.lua",
 		["kolba.browze"] = "src/browze.lua",
+		["kolba.context"] = "src/context.lua",
 		["util.json"] = "util/json.lua"
 	}
 }

@@ -15,15 +15,12 @@ function route.add(method, path, body)
 end
 
 function route.match(method, uri)
-	-- Check if a route exists that matches method and uri
-	-- Returns the callback or string assigned to the route
-
 	local existing = false
 
 	for i,v in ipairs(route.routes) do
 		local the_same = uri == v.path
 		if (the_same or string.match(uri, "^" .. v.path .. "$")) and method == v.method then
-			return v.body()
+			return v
 		end
 	end
 end

@@ -1,4 +1,4 @@
-local lustache = require("lustache")
+local liluat = require("liluat")
 
 local template = {}
 
@@ -6,15 +6,22 @@ template.folder = ""
 template.views = {}
 
 function template.view(name, model)
-	local _view
+	local view
+
 	if not template.views[name] then
-		_file = io.open(template.folder .. name .. ".html", "rb")
-		_file_contents = _file:read("a")
-		_view = lustache:render(_file_contents, model)
-		_file:close()
+		local file = io.open(template.folder .. name .. ".html", "rb")
+		local contents = file:read("*a")
+
+		local compiled = liluat.compile(contents)
+		view = liluat.render(compiled, model)
+
+		file:close()
+		template.views[name] = compiled
+	else
+		view = liluat.render(template.views[name], model)
 	end
 
-	return _view
+	return view
 end
 
 return template

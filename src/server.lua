@@ -37,7 +37,6 @@ function server.onstream(serv, stream)
 
 	server.body.text = stream:get_body_as_string(1)
 
-
 	if server.conf.is_dev then
 		local pre = '[%s] "%s %s HTTP/%g" "%s" "%s"\n'
 
@@ -56,13 +55,13 @@ function server.onstream(serv, stream)
 	end
 
 
-	local route = kolba.route.match(method, path)
-	local body = ""
+	local route = kolba.route.match(method, path).body(kolba.context.new(headers))
+	local body
 
 	if route then
-		headers:upsert(":status", tostring(route[1]))
-		headers:upsert("content-type", route[2])
-		body = route[3]
+		headers:upsert(":status", tostring(route.code))
+		headers:upsert("content-type", route.mime)
+		body = route.body
 	else
 		headers:upsert(":status", "404")
 		body = "Route not found."
